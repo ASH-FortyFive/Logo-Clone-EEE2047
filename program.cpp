@@ -4,12 +4,8 @@
 
 void Program::run() {
 	//--------Teammember 1 to replace this section----------
-	Command * cmd;
-	
-	for (auto i = cmds.begin(); i != cmds.end(); ++i)
+	for (Command * cmd: cmds)
 	{
-		std::cout << "Some command" << std::endl;
-		cmd = *i;
 		cmd->run();
 	}
 	//-------------------------------------------------------
@@ -33,15 +29,15 @@ std::istream& operator>>(std::istream& in, Program& prog)
 		}
 		else if(commandString == "JUMP")
 		{
-			prog.cmds.push_back(new Forward);
+			prog.cmds.push_back(new Jump);
 		}
 		else if(commandString == "LEFT")
 		{
-			prog.cmds.push_back(new Forward);
+			prog.cmds.push_back(new Left);
 		}
 		else if(commandString == "RIGHT")
 		{
-			prog.cmds.push_back(new Forward);
+			prog.cmds.push_back(new Right);
 		}
 		else if(commandString == "REPEAT")
 		{
@@ -53,7 +49,7 @@ std::istream& operator>>(std::istream& in, Program& prog)
 		}
 
 		in >> temp;
-		prog.cmds.front()->run();
+		//std::cerr << *prog.cmds.front() << std::endl;
 	}
 	return in;
 }

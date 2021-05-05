@@ -13,8 +13,9 @@ void Forward::run() {
 Forward::Forward() {
 
 }
-std::istream& operator>>(std::istream& in, Forward& fwd)
+std::istream& operator>>(std::istream& in, Command& fwd)
 {
+    
     in >> fwd.value;
     return in;
 }

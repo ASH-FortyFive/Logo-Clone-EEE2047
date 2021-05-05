@@ -6,6 +6,6 @@ class Forward:public Command{
 	public:
 		Forward();
 	  	void run();
-		friend std::istream& operator>>(std::istream& in, Forward& fwd); 
+		friend std::istream& operator>>(std::istream& in, Command& fwd); 
 };
 #endif /* FORWARD_H_ */

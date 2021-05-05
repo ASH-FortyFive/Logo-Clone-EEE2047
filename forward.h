@@ -2,10 +2,10 @@
 #define FORWARD_H_
 
 #include "command.h"
-
-//--------Teammember 3 to complete this section (class declaration) ----------
-
-//----------------------------------------------------------------------------
-
-
+class Forward:public Command{
+	public:
+		Forward();
+	  	void run();
+		friend std::istream& operator>>(std::istream& in, Forward& fwd); 
+};
 #endif /* FORWARD_H_ */

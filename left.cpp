@@ -7,7 +7,19 @@
   }
 std::istream& operator>>(std::istream& in, Left& lft)
 {
-  in >> lft.value;
-  return in;
+    std::string input;
+    in >> input;
+    
+    if(std::isdigit(input[0]))
+    {
+        lft.value = std::stof(input);
+    }
+    else
+    {
+        std::cerr << "Invalid Value for Left" << std::endl;
+        exit(0);
+    }
+
+    return in;
 }
 

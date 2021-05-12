@@ -12,6 +12,18 @@ Forward::Forward() {
 }
 std::istream& operator>>(std::istream& in, Forward& fwd)
 {
-    in >> fwd.value;
+    std::string input;
+    in >> input;
+    
+    if(std::isdigit(input[0]))
+    {
+        fwd.value = std::stof(input);
+    }
+    else
+    {
+        std::cerr << "Invalid Value for Forward" << std::endl;
+        exit(0);
+    }
+
     return in;
 }

@@ -14,19 +14,26 @@ Repeat::Repeat() {}
 std::istream& operator>>(std::istream& in, Repeat& rpt)
 {
     std::string input;
-    in >> input;
     
-    if(std::isdigit(input[0]))
+    in >> input >> std::ws;
+
+    try
     {
         rpt.value = std::stof(input);
     }
-    else
+    catch(std::invalid_argument)
     {
-        std::cerr << "Invalid Value for Repeat" << std::endl;
+        std::cerr << "Invalid Value for Repeat (Invalid Arg): " << input << std::endl;
+        exit(0);
+    }
+    catch(std::out_of_range)
+    {
+        std::cerr << "Invalid Value for Repeat (Out of Range): " << input << std::endl;
         exit(0);
     }
 
     in >> input;
+    
     if(input == "[")
     {
         in >> rpt.prog;

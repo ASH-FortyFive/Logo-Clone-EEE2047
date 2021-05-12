@@ -8,18 +8,30 @@
 std::istream& operator>>(std::istream& in, Left& lft)
 {
     std::string input;
-    in >> input;
-    
-    if(std::isdigit(input[0]))
+    in >> input >> std::ws;
+
+    try
     {
         lft.value = std::stof(input);
     }
-    else
+    catch(std::invalid_argument)
     {
-        std::cerr << "Invalid Value for Left" << std::endl;
+        std::cerr << "Invalid Value for Left (Invalid Arg): " << input << std::endl;
+        exit(0);
+    }
+    catch(std::out_of_range)
+    {
+        std::cerr << "Invalid Value for Left (Out of Range): " << input << std::endl;
         exit(0);
     }
 
+    //! Slighly strange method of ensuring our Error Checking code doesn't destroy the ] sign
+    if(input[input.length() - 1] == ']')
+    {   
+        in.putback(' ');
+        in.putback(']');
+    }
+    
     return in;
 }
 

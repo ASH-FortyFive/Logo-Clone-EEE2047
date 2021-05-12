@@ -1,7 +1,6 @@
 #include "repeat.h"
 #include "program.h"
 
-
 void Program::run() {
 	//--------Teammember 1 to replace this section----------
 	for (Command * cmd: cmds)
@@ -19,7 +18,7 @@ std::istream& operator>>(std::istream& in, Program& prog)
 
 	while(!in.eof())
 	{
-		in >> commandString;
+		in >> commandString >> std::ws;
 		//std::cerr << commandString << std::endl;
 		if(commandString == "FORWARD")
 		{
@@ -49,6 +48,7 @@ std::istream& operator>>(std::istream& in, Program& prog)
 		else if(commandString == "REPEAT")
 		{
 			Repeat *rpt  = new Repeat;
+			std::cerr << "Reading Repeat Input" << std::endl;
 			in >> *rpt;
 			prog.cmds.push_back(rpt);
 		}
@@ -59,7 +59,7 @@ std::istream& operator>>(std::istream& in, Program& prog)
 		else // For Debug only
 		{
 			std::cerr << "Invalid Input: " << commandString << std::endl;
-			return in;
+			exit(0);
 		}
 	}
 	return in;

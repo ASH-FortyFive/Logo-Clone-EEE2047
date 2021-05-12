@@ -1,6 +1,6 @@
 #include "jump.h"
   void Jump::run(){
-    glTranslatef(0,value,0);
+    glTranslatef(Command::value,0,0);
   }
   Jump::Jump(){
   

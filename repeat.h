@@ -5,7 +5,15 @@
 #include "program.h"
 
 //--------Teammember 2 to complete this section (class declaration) ----------
-
+class Repeat : public Command
+{
+    private:
+        Program prog;
+    public:
+        Repeat();
+        void run();
+        friend std::istream& operator>>(std::istream& in, Repeat& rpt);
+};
 //----------------------------------------------------------------------------
 
 #endif /* REPEAT_H_ */

@@ -17,13 +17,13 @@ std::istream& operator>>(std::istream& in, Program& prog)
 	//--------Teammember 1 to complete this section----------
 	std::string commandString;
 
-	
-
-	while(!in.eof())// || in.peek()  == ']')
+	while(!in.eof())
 	{
 		in >> commandString;
+		//std::cerr << commandString << std::endl;
 		if(commandString == "FORWARD")
 		{
+
 			Forward *fwd  = new Forward;
 			in >> *fwd;
 			prog.cmds.push_back(fwd);
@@ -48,13 +48,18 @@ std::istream& operator>>(std::istream& in, Program& prog)
 		}
 		else if(commandString == "REPEAT")
 		{
-			float temp;
-			in >> temp;
-			//prog.cmds.push_back(new Forward);
+			Repeat *rpt  = new Repeat;
+			in >> *rpt;
+			prog.cmds.push_back(rpt);
 		}
-		else
+		else if(commandString == "]")
 		{
-			std::cerr << "Oppsie whoppsie" << std::endl;
+			return in;
+		}
+		else // For Debug only
+		{
+			std::cerr << "Invalid Input: " << commandString << std::endl;
+			return in;
 		}
 	}
 	return in;
@@ -62,6 +67,6 @@ std::istream& operator>>(std::istream& in, Program& prog)
 
 Program::~Program()
 {
-	
+	cmds.clear();
 }
 

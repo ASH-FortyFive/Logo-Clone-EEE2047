@@ -17,39 +17,45 @@ std::istream& operator>>(std::istream& in, Program& prog)
 	//--------Teammember 1 to complete this section----------
 	std::string commandString;
 
-
-	float temp;
+	
 
 	while(!in.eof())// || in.peek()  == ']')
 	{
 		in >> commandString;
 		if(commandString == "FORWARD")
 		{
-			prog.cmds.push_back(new Forward);
+			Forward *fwd  = new Forward;
+			in >> *fwd;
+			prog.cmds.push_back(fwd);
 		}
 		else if(commandString == "JUMP")
 		{
-			prog.cmds.push_back(new Jump);
+			Jump *jmp  = new Jump;
+			in >> *jmp;
+			prog.cmds.push_back(jmp);
 		}
 		else if(commandString == "LEFT")
 		{
-			prog.cmds.push_back(new Left);
+			Left *lft  = new Left;
+			in >> *lft;
+			prog.cmds.push_back(lft);
 		}
 		else if(commandString == "RIGHT")
 		{
-			prog.cmds.push_back(new Right);
+			Right *rit  = new Right;
+			in >> *rit;
+			prog.cmds.push_back(rit);
 		}
 		else if(commandString == "REPEAT")
 		{
-			prog.cmds.push_back(new Forward);
+			float temp;
+			in >> temp;
+			//prog.cmds.push_back(new Forward);
 		}
 		else
 		{
 			std::cerr << "Oppsie whoppsie" << std::endl;
 		}
-
-		in >> temp;
-		//std::cerr << *prog.cmds.front() << std::endl;
 	}
 	return in;
 }

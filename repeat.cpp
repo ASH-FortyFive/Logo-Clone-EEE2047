@@ -32,11 +32,18 @@ std::istream& operator>>(std::istream& in, Repeat& rpt)
         exit(0);
     }
 
-    in >> input;
-    
-    if(input == "[")
+    //! Slighly strange method of ensuring our Error Checking doesn't ignore the '['
+    if(input[input.length() - 1] == '[')
+    {   
+        // Default case
+    }
+    else if(char(in.peek()) == '[')
     {
-        in >> rpt.prog;
+       in.get(); //! Removes the previously peaked '['
+       if(char(in.peek()) == ' ') //! Removes any white spaces after opening bracket
+       {
+            in.get();
+       }
     }
     else
     {
@@ -44,6 +51,10 @@ std::istream& operator>>(std::istream& in, Repeat& rpt)
         exit(0);
     }
 
+    in >> rpt.prog;
+
+   // std::cerr << "Peek: " << char(in.peek())  << std::endl;
+    
     return in;
 }
 //----------------------------------------------------------------------------

@@ -28,7 +28,6 @@ std::istream& operator>>(std::istream& in, Jump& jmp)
     //! Slighly strange method of ensuring our Error Checking code doesn't destroy the ] sign
     if(input[input.length() - 1] == ']')
     {   
-        in.putback(' ');
         in.putback(']');
     }
 

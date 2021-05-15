@@ -18,8 +18,21 @@ std::istream& operator>>(std::istream& in, Program& prog)
 
 	while(!in.eof())
 	{
+
+		if(char(in.peek()) == ']')
+		{
+			char temp = in.get(); //Removes the peek ']'
+			std::cerr << "Getting a " << temp <<  " and peeking a " << char(in.peek()) << std::endl;
+			if(char(in.peek()) == ' ') //! Removes any white spaces after closing bracket
+       		{
+				std::cerr << "Peeked white space" << char(in.peek()) << std::endl;
+            	in.get();
+       		}
+			return in; 
+		}
+
 		in >> commandString >> std::ws;
-		//std::cerr << commandString << std::endl;
+		std::cerr << commandString << std::endl;
 		if(commandString == "FORWARD")
 		{
 
@@ -48,13 +61,8 @@ std::istream& operator>>(std::istream& in, Program& prog)
 		else if(commandString == "REPEAT")
 		{
 			Repeat *rpt  = new Repeat;
-			std::cerr << "Reading Repeat Input" << std::endl;
 			in >> *rpt;
 			prog.cmds.push_back(rpt);
-		}
-		else if(commandString == "]")
-		{
-			return in;
 		}
 		else // For Debug only
 		{

@@ -15,6 +15,8 @@ std::istream& operator>>(std::istream& in, Forward& fwd)
     std::string input;
     in >> input >> std::ws;
 
+    //std::cout << "In: "<< input << std::endl; 
+
     try
     {
         fwd.value = std::stof(input);
@@ -33,7 +35,7 @@ std::istream& operator>>(std::istream& in, Forward& fwd)
     //! Slighly strange method of ensuring our Error Checking code doesn't destroy the ] sign
     if(input[input.length() - 1] == ']')
     {   
-        in.putback(' ');
+        //in.putback(' ');
         in.putback(']');
     }
 

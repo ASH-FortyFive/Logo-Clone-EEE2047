@@ -19,13 +19,12 @@ std::istream& operator>>(std::istream& in, Program& prog)
 	while(!in.eof())
 	{
 
+		std::cerr << char(in.peek()) << std::endl;
 		if(char(in.peek()) == ']')
 		{
-			char temp = in.get(); //Removes the peek ']'
-			std::cerr << "Getting a " << temp <<  " and peeking a " << char(in.peek()) << std::endl;
+			in.get(); //Removes the peek ']'
 			if(char(in.peek()) == ' ') //! Removes any white spaces after closing bracket
        		{
-				std::cerr << "Peeked white space" << char(in.peek()) << std::endl;
             	in.get();
        		}
 			return in; 

@@ -19,7 +19,6 @@ std::istream& operator>>(std::istream& in, Program& prog)
 	while(!in.eof())
 	{
 
-		std::cerr << char(in.peek()) << std::endl;
 		if(char(in.peek()) == ']')
 		{
 			in.get(); //Removes the peek ']'
@@ -31,7 +30,7 @@ std::istream& operator>>(std::istream& in, Program& prog)
 		}
 
 		in >> commandString >> std::ws;
-		std::cerr << commandString << std::endl;
+		//std::cerr << commandString << std::endl;
 		if(commandString == "FORWARD")
 		{
 

@@ -1,38 +1,28 @@
 #include "left.h"
-  void Left::run(){
-	  glRotatef(value, 0,0,1);
-  }
-  Left::Left(){
+
+void Left::run()
+{
+    glRotatef(value, 0,0,1);
+}
   
-  }
+Left::Left(){}
+
 std::istream& operator>>(std::istream& in, Left& lft)
 {
-    std::string input;
-    in >> input >> std::ws;
-
-    try
+    int peek = in.peek();
+    if((peek >= 48 && peek <= 57) || //Ensure next value is a number
+        char(peek) == '-'         || //or a negative symbol
+        char(peek) == '.')           //or a decimal
     {
-        lft.value = std::stof(input);
+        in >> lft.value >> std::ws;
+        return in;
     }
-    catch(std::invalid_argument)
+    else
     {
-        std::cerr << "Invalid Value for Left (Invalid Arg): " << input << std::endl;
+        std::string error;
+        in >> error;
+        std::cerr << "Invalid Input for Left: " << error << std::endl;
         exit(0);
     }
-    catch(std::out_of_range)
-    {
-        std::cerr << "Invalid Value for Left (Out of Range): " << input << std::endl;
-        exit(0);
-    }
-
-    //! Slighly strange method of ensuring our Error Checking code doesn't destroy the ] sign
-    int i(1);
-    while(input[input.length() - i] == ']')
-    {   
-        i++;
-        in.putback(']');
-    }
-    
-    return in;
 }
 

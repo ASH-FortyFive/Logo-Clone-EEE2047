@@ -13,43 +13,28 @@ Repeat::Repeat() {}
         
 std::istream& operator>>(std::istream& in, Repeat& rpt)
 {
-    std::string input;
-    
-    in >> input >> std::ws;
-
-    try
+    int peek = in.peek();
+    if(peek >= 48 && peek <= 57)  //Ensure next value is a number
     {
-        rpt.value = std::stof(input);
-    }
-    catch(std::invalid_argument)
-    {
-        std::cerr << "Invalid Value for Repeat (Invalid Arg): " << input << std::endl;
-        exit(0);
-    }
-    catch(std::out_of_range)
-    {
-        std::cerr << "Invalid Value for Repeat (Out of Range): " << input << std::endl;
-        exit(0);
-    }
-
-    //! Slighly strange method of ensuring our Error Checking doesn't ignore the '['
-    if(input[input.length() - 1] == '[')
-    {   
-        // Default case
-    }
-    else if(char(in.peek()) == '[')
-    {
-       in.get(); //! Removes the previously peaked '['
-       if(char(in.peek()) == ' ') //! Removes any white spaces after opening bracket
-       {
-            in.get();
-       }
+        in >> rpt.value >> std::ws;
     }
     else
     {
-        std::cerr << "Invalid Repeat Format" << std::endl;
+        std::string error;
+        in >> error;
+        std::cerr << "Invalid Input for Repeat: " << error << std::endl;
         exit(0);
     }
+
+    //! Checking that we correctly open brackets next
+    if(char(in.peek()) != '[')
+    {
+       
+       std::cerr << "Invalid Repeat Format" << std::endl;
+        exit(0);
+    }
+
+    in.get(); //! Removes the previously peaked '['
 
     in >> rpt.prog;
 

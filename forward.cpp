@@ -1,43 +1,31 @@
 #include "forward.h"
 
-void Forward::run() {
+void Forward::run() 
+{
     glBegin(GL_LINE_LOOP);
     glVertex3f(0.0f, 0.0f, 0.0f);
     glVertex3f(Command::value, 0.0f, 0.0f);
     glEnd();
     glTranslatef(Command::value, 0, 0);
 }
-Forward::Forward() {
 
-}
+Forward::Forward() {}
+
 std::istream& operator>>(std::istream& in, Forward& fwd)
 {
-    std::string input;
-    in >> input >> std::ws;
-
-    //std::cout << "In: "<< input << std::endl; 
-
-    try
+    int peek = in.peek();
+    if((peek >= 48 && peek <= 57) || //Ensure next value is a number
+        char(peek) == '-'         || //or a negative symbol
+        char(peek) == '.')           //or a decimal
     {
-        fwd.value = std::stof(input);
+        in >> fwd.value >> std::ws;
+        return in;
     }
-    catch(std::invalid_argument)
+    else
     {
-        std::cerr << "Invalid Value for Forward (Invalid Arg): " << input << std::endl;
+        std::string error;
+        in >> error;
+        std::cerr << "Invalid Input for Forward: " << error << std::endl;
         exit(0);
     }
-    catch(std::out_of_range)
-    {
-        std::cerr << "Invalid Value for Forward (Out of Range): " << input << std::endl;
-        exit(0);
-    }
-
-    //! Slighly strange method of ensuring our Error Checking code doesn't destroy the ] sign
-    if(input[input.length() - 1] == ']')
-    {   
-        //in.putback(' ');
-        in.putback(']');
-    }
-
-    return in;
 }

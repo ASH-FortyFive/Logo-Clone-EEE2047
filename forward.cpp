@@ -14,6 +14,7 @@ Forward::Forward() {}
 std::istream& operator>>(std::istream& in, Forward& fwd)
 {
     int peek = in.peek();
+    
     if((peek >= 48 && peek <= 57) || //Ensure next value is a number
         char(peek) == '-'         || //or a negative symbol
         char(peek) == '.')           //or a decimal

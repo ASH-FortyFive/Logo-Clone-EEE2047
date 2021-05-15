@@ -14,6 +14,7 @@ Repeat::Repeat() {}
 std::istream& operator>>(std::istream& in, Repeat& rpt)
 {
     int peek = in.peek();
+    std::cerr << char(peek) << std::endl;
     if(peek >= 48 && peek <= 57)  //Ensure next value is a number
     {
         in >> rpt.value >> std::ws;

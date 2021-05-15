@@ -22,15 +22,12 @@ std::istream& operator>>(std::istream& in, Program& prog)
 		if(char(in.peek()) == ']')
 		{
 			in.get(); //Removes the peek ']'
-			if(char(in.peek()) == ' ') //! Removes any white spaces after closing bracket
-       		{
-            	in.get();
-       		}
+			in >> std::ws; //Removes empty space
 			return in; 
 		}
 
 		in >> commandString >> std::ws;
-		//std::cerr << commandString << std::endl;
+		
 		if(commandString == "FORWARD")
 		{
 
@@ -62,12 +59,15 @@ std::istream& operator>>(std::istream& in, Program& prog)
 			in >> *rpt;
 			prog.cmds.push_back(rpt);
 		}
-		else // For Debug only
+		else
 		{
 			std::cerr << "Invalid Input: " << commandString << std::endl;
 			exit(0);
 		}
 	}
+
+	in >> std::ws;
+
 	return in;
 }
 
